@@ -29,6 +29,8 @@ public class YdbDecimalTest implements AutoCloseable {
         makeTable();
         insertRows();
         selectRows();
+        aggregateRows();
+        filterRows();
     }
 
     public void init() throws Exception {
@@ -90,6 +92,33 @@ public class YdbDecimalTest implements AutoCloseable {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     System.out.println("... " + rs.getBigDecimal(2).toString());
+                }
+            }
+        }
+        System.out.println("ready!");
+    }
+
+    private void aggregateRows() throws Exception {
+        System.out.println("aggregating...");
+        String sql = "SELECT SUM(b) FROM dectest1";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    System.out.println("... " + rs.getBigDecimal(1).toString());
+                }
+            }
+        }
+        System.out.println("ready!");
+    }
+
+    private void filterRows() throws Exception {
+        System.out.println("filtering...");
+        String sql = "SELECT b FROM dectest1 WHERE b>?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setBigDecimal(1, new BigDecimal("455555555555555.0"));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    System.out.println("... " + rs.getBigDecimal(1).toString());
                 }
             }
         }
