@@ -5,6 +5,9 @@
 
 # ydb yql -s 'DROP TABLE dectest1'
 
+# YDB_CONNECTION_STRING=grpcs://lb.etnphmvaf3ue1ub1srr6.ydb.mdb.yandexcloud.net:2135/ru-central1/b1g8skpblkos03malf3s/etnphmvaf3ue1ub1srr6
+# YDB_SERVICE_ACCOUNT_KEY_FILE_CREDENTIALS=/Users/mzinal/Downloads/mzinal_sa.json
+
 YDB_CONNECTION_STRING=grpcs://zeit-1:2135/Domain0/zodak
 export YDB_CONNECTION_STRING
 

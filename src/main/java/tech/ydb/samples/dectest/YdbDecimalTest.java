@@ -45,6 +45,10 @@ public class YdbDecimalTest implements AutoCloseable {
         }
         String login = System.getenv("YDB_USER");
         if (login==null) {
+            String saFile = System.getenv("YDB_SERVICE_ACCOUNT_KEY_FILE_CREDENTIALS");
+            if (saFile!=null) {
+                jdbcUrl = jdbcUrl + "&saFile=file:" + saFile;
+            }
             this.connection = DriverManager.getConnection(jdbcUrl);
         } else {
             this.connection = DriverManager.getConnection(jdbcUrl, login, System.getenv("YDB_PASSWORD"));
